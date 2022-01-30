@@ -67,14 +67,14 @@ jobs:
         shell: cmd
           
       - name: Package application
-      - uses: papeloto/action-zip@v1
+        uses: papeloto/action-zip@v1
         with:
           files: package/
           recursive: true
           dest: EM1802.zip
          
       - name: Package application
-      - uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v1
         with:
           name: my-artifact
           path: ${{ github.workspace }}/EM1802.zip
