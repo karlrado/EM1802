@@ -51,4 +51,5 @@ jobs:
           nmake
           dir
           dir ..
+          dir release
         shell: cmd
