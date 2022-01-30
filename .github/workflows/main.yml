@@ -58,8 +58,8 @@ jobs:
         run: |
           md package
           copy release\EM1802.exe package
-          call "%QTDIR%\bin\qtenv2.bat"
-          "%QTDIR%\bin\windeployqt" package
+          call "%Qt5_Dir%\bin\qtenv2.bat"
+          "%Qt5_Dir%\bin\windeployqt" package
           dir package
         shell: cmd
           
