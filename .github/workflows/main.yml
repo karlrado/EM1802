@@ -53,3 +53,12 @@ jobs:
           dir ..
           dir release
         shell: cmd
+        
+      - name: Package application
+          md package
+          copy release\EM1802.exe package
+          call "%QTDIR%\bin\qtenv2.bat"
+          "%QTDIR%\bin\windeployqt" package
+          dir package
+          
+          
