@@ -67,11 +67,11 @@ jobs:
         shell: cmd
           
       - name: Package application
-        uses: papeloto/action-zip@v1
+        uses: thedoctor0/zip-release@master
         with:
-          files: package/
-          recursive: true
-          dest: EM1802.zip
+          type: 'zip'
+          path: 'package'
+          filename: EM1802.zip
          
       - name: Package application
         uses: actions/upload-artifact@v1
