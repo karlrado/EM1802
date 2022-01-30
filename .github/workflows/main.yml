@@ -43,3 +43,10 @@ jobs:
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+
+      - name: Build application
+        if: startsWith(matrix.os, 'windows')
+        run: |
+          call "%programfiles(x86)%\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
+          qmake
+        shell: cmd
