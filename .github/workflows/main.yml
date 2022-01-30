@@ -56,10 +56,13 @@ jobs:
         
       - name: Package application
         run: |
+          dir "%Qt5_Dir%\bin"
+          call "%programfiles(x86)%\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           md package
           copy release\EM1802.exe package
           call "%Qt5_Dir%\bin\qtenv2.bat"
-          "%Qt5_Dir%\bin\windeployqt" package
+          call "%Qt5_Dir%\bin\windeployqt" package
+          dir
           dir package
         shell: cmd
           
