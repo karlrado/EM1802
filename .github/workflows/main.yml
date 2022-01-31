@@ -49,33 +49,26 @@ jobs:
           call "%programfiles(x86)%\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
           qmake -makefile EM1802.pro
           nmake
-          dir
-          dir ..
-          dir release
         shell: cmd
         
-      - name: Package application
+      - name: Create distribution
         run: |
           set PATH=%Qt5_Dir%\bin;%PATH%
           call "%programfiles(x86)%\Microsoft Visual Studio\2019\Enterprise\VC\Auxiliary\Build\vcvars64.bat"
-          dir
-          md package
-          copy release\EM1802.exe package
-          windeployqt.exe package
-          dir
-          dir package
+          md dist
+          copy release\EM1802.exe dist
+          windeployqt.exe dist
         shell: cmd
           
-      - name: Package application
+      - name: Create zip file
         uses: thedoctor0/zip-release@master
         with:
           type: 'zip'
-          path: 'package'
+          path: 'dist'
           filename: EM1802.zip
          
-      - name: Package application
+      - name: Upload artifact
         uses: actions/upload-artifact@v1
         with:
-          name: my-artifact
-          path: ${{ github.workspace }}/EM1802.zip
-          dest: EM1802.zip
+          name: EM1802.zip
+          path: ${{ github.workspace }}/dist
