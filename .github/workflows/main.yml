@@ -58,6 +58,7 @@ jobs:
           md dist
           copy release\EM1802.exe dist
           windeployqt.exe dist
+          copy idiot4.hex dist
         shell: cmd
           
       - name: Create zip file
@@ -67,8 +68,8 @@ jobs:
           path: 'dist'
           filename: EM1802.zip
          
-      - name: Upload artifact
+      - name: Upload artifact (zip file)
         uses: actions/upload-artifact@v1
         with:
-          name: EM1802.zip
+          name: EM1802
           path: ${{ github.workspace }}/dist
