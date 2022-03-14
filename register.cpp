@@ -12,7 +12,6 @@ Register::Register(QWidget *parent)
 
     Identifier = new QLabel(this);
     Identifier->setAlignment(Qt::AlignCenter);
-
     RegisterValue = new QLineEdit(this);
     RegisterValue->setInputMask("HHHH;0");
     RegisterValue->setPlaceholderText("0000");
@@ -33,8 +32,17 @@ Register::Register(QWidget *parent)
     Layout->addWidget(RIndicator);
     setLayout(Layout);
 
+    Identifier->installEventFilter(this);
+
     QObject::connect(RegisterValue, &QLineEdit::textEdited, this, &Register::set);
     QObject::connect(this, &Register::objectNameChanged, Identifier, [this](QString Label) { Identifier->setText(Label.replace(CamelCase,"\\1 \\2"));});
+}
+
+bool Register::eventFilter( QObject* object, QEvent* event)
+{
+    if(object == Identifier && event->type() == QEvent::MouseButtonRelease)
+        emit doubleClick(Value.Word);
+    return false;
 }
 
 void Register::set()
@@ -42,6 +50,11 @@ void Register::set()
     bool conversionStatus;
     Value.Word = RegisterValue->displayText().toUInt(&conversionStatus, 16);
     emit valueChanged(Value.Word);
+}
+
+void Register::setIdentifierCursor(QCursor Cursor)
+{
+    Identifier->setCursor(Cursor);
 }
 
 int Register::nibbleCount()
